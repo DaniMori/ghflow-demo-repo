@@ -9,16 +9,9 @@ editor_options:
 ```{r config}
 #| echo: false
 
-# TODO: Substitute "<username>" by your own GitHub user name, e.g.:
-#   GITHUB_USERNAME <- "JohnDoe"
-GITHUB_USERNAME <- "<username>"
-# TODO: Substitute "<author_name>" by your own name, as you want to be credited
-#   in attributions, e.g.:
-#   AUTHOR_NAME <- "John M. Doe, Ph.D."
-AUTHOR_NAME     <- "<author_name>"
-# TODO: Change the following line to a fixed value if preferred, e.g.:
-#   creation_year   <- 2025L
-CREATION_YEAR   <- lubridate::now() |> lubridate::year()
+GITHUB_USERNAME <- "DaniMori"
+AUTHOR_NAME     <- "Daniel Morillo"
+CREATION_YEAR   <- 2026L
 
 
 # Objects created automatically (no need to edit)
@@ -39,12 +32,9 @@ git_version   <- gitr::git_version()
 
 # Repository ``r repo_name``
 
-<!-- TODO: Add a repository description -->
-<This is a free text repository description.>
+Demo repository for attendees to the workshop 'Boosting collaborative research with "GitHub flow" for Rstudio users' at SORTEE Conference 2026
 
 # License
-
-<!-- TODO: Choose a license and update this section, if necessary -->
 
 [Repository `r repo_name`](`r repo_url`) © `r CREATION_YEAR` by
 [`r AUTHOR_NAME`](`r profile_url`) is licensed under [CC BY 4.0][license].
@@ -67,10 +57,6 @@ created by [Daniel Morillo][profile] and licensed under the
 [profile]: https://github.com/DaniMori
 
 [repo_lic]: https://creativecommons.org/licenses/by/4.0
-
-<!-- TODO: Add attributions to other software components, if necessary -->
-
-### <Software component>
 
 # Project installation
 
