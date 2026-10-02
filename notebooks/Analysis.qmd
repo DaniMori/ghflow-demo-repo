@@ -1,6 +1,8 @@
 ---
 title: "Sample analysis"
-format: docx
+format:
+  html: default
+  docx: default
 ---
 
 ```{r setup, include=FALSE}
