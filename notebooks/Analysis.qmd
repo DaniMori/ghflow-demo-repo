@@ -18,6 +18,8 @@ library(tidyr)
 library(labelled)
 # NOTE: {gtsummary} is heavy; install & adapt code at your own convenience
 # library(gtsummary) # TODO: Uncomment (& install packages if using {gtsummary})
+# library(broom)         # These do not need to be loaded actually, but they are
+# library(broom.helpers) #   needed for {gtsummary} to work.
 
 
 # Environment configuration:
