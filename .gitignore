@@ -31,5 +31,6 @@
 
 # Directories and links
 .Rproj.user
-/dat/
+dat/
+!dat/penguins.csv
 *.lnk

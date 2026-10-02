@@ -1,0 +1,113 @@
+---
+title: "Sample analysis"
+format: docx
+---
+
+```{r setup, include=FALSE}
+# Load packages:
+
+library(knitr)
+library(here)
+library(readr)
+library(dplyr)
+library(forcats)
+library(stringr)
+library(tidyr)
+library(labelled)
+# NOTE: {gtsummary} is heavy; install & adapt code at your own convenience
+# library(gtsummary) # TODO: Uncomment (& install packages if using {gtsummary})
+library(survival)
+
+
+# Environment configuration:
+
+## Set working directory to the project root (reproducibly):
+opts_knit$set(root.dir = here())
+
+# Set chunk options:
+opts_chunk$set(echo = FALSE) # Omit syntax from output
+```
+
+# Introduction
+
+We will analyze the body mass differences in arctic penguins.
+
+# Methods
+
+We load and preprocess the dataset, and then compute its descriptive statistics, after filtering out non-complete cases.
+
+```{r load-data}
+## Read dataset:
+penguins_data <- read_csv(
+  file = "dat/penguins.csv",
+  col_types = cols(
+    species  = col_factor(),
+    island   = col_factor(),
+    sex      = col_factor(),
+    year     = col_integer(),
+    .default = col_double()
+  )
+)
+```
+
+```{r preprocess-data}
+## Recode values:
+penguins_data <- penguins_data |>
+  mutate(sex = sex |> fct_relabel(str_to_sentence))
+
+## Assign labels:
+# (see https://allisonhorst.github.io/palmerpenguins/reference/penguins.html
+#   for more info):
+penguins_data <- penguins_data |> set_variable_labels(
+  species           = "Penguin species",
+  island            = "Island in Palmer Archipielago",
+  bill_length_mm    = "Bill length (mm)",
+  bill_depth_mm     = "Bill depth (mm)",
+  flipper_length_mm = "Flipper length (mm)",
+  body_mass_g       = "Body mass (g)",
+  sex               = "Sex",
+  year              = "Study year"
+)
+
+## Filter out non-complete cases:
+penguins_data <- penguins_data |> drop_na()
+```
+
+```{r descriptive-stats}
+## Simple summary:
+descriptive_table <- penguins_data |> summary()
+## TODO: Drop if using neater {gtsummary} output
+
+## Create descriptive statistics table:
+# descriptive_table <- penguins_data |> tbl_summary()
+## TODO: Uncomment if using {gtsummary}
+```
+
+Finally, we try to explain weight by sex and species, fitting a linear model to the individual body mass data.
+
+```{r model-fit}
+bodymass_fit <- lm(body_mass_g ~ sex + species, data = penguins_data)
+## TODO: Add interaction/covariates? Test model assumptions?
+
+bodymass_coef_table <- bodymass_fit |> coef()
+## TODO: Drop if using {gtsummary}
+
+# bodymass_coef_table <- bodymass_fit |> tbl_regression()
+## TODO: Uncomment if using {gtsummary}
+```
+
+# Results
+
+In the following we see the descriptive statistics.
+
+```{r descriptives-table}
+descriptive_table
+```
+
+<br>
+
+This table shows the model coefficients.
+
+```{r model-output}
+bodymass_coef_table
+```
