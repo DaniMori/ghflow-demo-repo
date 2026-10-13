@@ -16,10 +16,9 @@ library(forcats)
 library(stringr)
 library(tidyr)
 library(labelled)
-# NOTE: {gtsummary} is heavy; install & adapt code at your own convenience
-# library(gtsummary) # TODO: Uncomment (& install packages if using {gtsummary})
-# library(broom)         # These do not need to be loaded actually, but they are
-# library(broom.helpers) #   needed for {gtsummary} to work.
+library(gtsummary)
+library(broom)
+library(broom.helpers)
 
 
 # Environment configuration:
@@ -77,26 +76,18 @@ penguins_data <- penguins_data |> drop_na()
 ```
 
 ```{r descriptive-stats}
-## Simple summary:
-descriptive_table <- penguins_data |> summary()
-## TODO: Drop if using neater {gtsummary} output
-
 ## Create descriptive statistics table:
-# descriptive_table <- penguins_data |> tbl_summary()
-## TODO: Uncomment if using {gtsummary}
+descriptive_table <- penguins_data |> tbl_summary()
 ```
 
 Finally, we try to explain weight by sex and species, fitting a linear model to the individual body mass data.
 
 ```{r model-fit}
 bodymass_fit <- lm(body_mass_g ~ sex + species, data = penguins_data)
-## TODO: Add interaction/covariates? Test model assumptions?
 
 bodymass_coef_table <- bodymass_fit |> coef()
-## TODO: Drop if using {gtsummary}
 
-# bodymass_coef_table <- bodymass_fit |> tbl_regression()
-## TODO: Uncomment if using {gtsummary}
+bodymass_coef_table <- bodymass_fit |> tbl_regression()
 ```
 
 # Results
